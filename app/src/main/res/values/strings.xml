@@ -12,4 +12,8 @@
     <string name="choose">PILIH</string>
     <string name="data_received">DATA DITERIMA</string>
     <string name="this_ismove_activity">INI PINDAH ACTIVITY</string>
+    <string name="_stop">BERHENTI</string>
+    <string name="_wait">HATI-HATI</string>
+    <string name="_go">JALAN</string>
+    <string name="choose_lamp">PILIH SALAH SATU RAMBU</string>
 </resources>

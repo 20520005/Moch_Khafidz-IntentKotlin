@@ -1,15 +1,25 @@
 package com.mokha.intentmokha
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var btnMoveActivity: Button
     private lateinit var btnMoveWithData: Button
+    private lateinit var btnDialNumber: Button
+    private lateinit var btnResultFromActivity: Button
+    private lateinit var tvResult: TextView
+
+    private lateinit var btnExit: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -19,6 +29,25 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         btnMoveWithData = findViewById(R.id.btn_move_with_data)
         btnMoveWithData.setOnClickListener(this)
+
+        btnDialNumber = findViewById(R.id.btn_dial_number)
+        btnDialNumber.setOnClickListener(this)
+
+        btnResultFromActivity = findViewById(R.id.btn_result_from_activity)
+        btnResultFromActivity.setOnClickListener(this)
+
+        tvResult = findViewById(R.id.tv_result)
+        ColorReceived()
+
+        btnExit = findViewById(R.id.btn_kill_it)
+        btnExit.setOnClickListener(this)
+
+    }
+
+    private fun ColorReceived() {
+        val bundle = intent.extras
+        val warna = bundle?.getString("Warna")
+        tvResult.text = warna
     }
 
     fun hello_mok(view: View) {
@@ -50,6 +79,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     intent.putExtras(bundle)
                     startActivity(intent)
                     Toast.makeText(this,"Pindah Activity + Data", Toast.LENGTH_SHORT).show()
+                }
+                R.id.btn_dial_number -> run {
+                    var dialNumber = "089666666666"
+                    val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + dialNumber))
+                    startActivity(intent)
+                }
+                R.id.btn_result_from_activity -> run {
+                    val intent = Intent(this, MoveForResultActivity::class.java)
+                    startActivity(intent)
+                }
+                R.id.btn_kill_it -> run {
+                    finishAffinity()
                 }
             }
         }
